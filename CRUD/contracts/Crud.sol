@@ -42,9 +42,12 @@ contract CRUD {
 
     // function to delete employee;
     function deleteEmployee(string memory email) external returns(bool){
+        require(totalEmployees > 0, "Employee list is empty");
         for(uint i = 0; i < totalEmployees; i++){
             if(comapreStrings(employees[i].email, email)){
-                employees[totalEmployees - 1] = employees[i];
+                employees[i] = employees[totalEmployees - 1];
+                delete employees[totalEmployees - 1];
+                totalEmployees--;
                 return true;
             }
         }
